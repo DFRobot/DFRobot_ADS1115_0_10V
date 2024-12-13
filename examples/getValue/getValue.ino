@@ -11,7 +11,7 @@
 #include <DFRobot_ADS1115_0_10V.h>
 
 //use I2C for communication, but use the serial port for communication if the line of codes were masked
-#define I2C_COMMUNICATION 
+// #define I2C_COMMUNICATION 
 
 #define MODULE_I2C_ADDRESS 0x4A
 #ifdef  I2C_COMMUNICATION
@@ -21,8 +21,8 @@
   *    board   |             MCU                | Leonardo/Mega2560/M0 |    UNO    | ESP8266 | ESP32 |  microbit  |   m0  |
   *     VCC    |            3.3V/5V             |        VCC           |    VCC    |   VCC   |  VCC  |     X      |  vcc  |
   *     GND    |              GND               |        GND           |    GND    |   GND   |  GND  |     X      |  gnd  |
-  *     RX     |              TX                |     Serial1 TX1      |     5     |   5/D6  | 25/D2 |     X      |  tx1  |
-  *     TX     |              RX                |     Serial1 RX1      |     4     |   4/D7  | 26/D3 |     X      |  rx1  |
+  *     RX     |              TX                |     Serial1 TX1      |     5     |   5/D6  | 26/D3 |     X      |  tx1  |
+  *     TX     |              RX                |     Serial1 RX1      |     4     |   4/D7  | 25/D2 |     X      |  rx1  |
   * ----------------------------------------------------------------------------------------------------------------------*/
 
 #elif defined(ARDUINO_AVR_UNO) || defined(ESP8266)

@@ -45,19 +45,19 @@ DFRobot_ADS1115_UART::DFRobot_ADS1115_UART(SoftwareSerial* sSerial)
 	_baud=9600;
 }
 #else
-DFRobot_ADS1115_UART::DFRobot_ADS1115_UART(HardwareSerial* hSerial, uint8_t txpin, uint8_t rxpin)
+DFRobot_ADS1115_UART::DFRobot_ADS1115_UART(HardwareSerial* hSerial, uint8_t rxpin, uint8_t txpin)
 {
 	_serial = hSerial;
 	_baud=9600;
-	_txpin = txpin;
 	_rxpin = rxpin;
+	_txpin = txpin;
 }
 #endif
 
 bool DFRobot_ADS1115_UART::begin(void)
 {
 #ifdef ESP32
-  _serial->begin(_baud, SERIAL_8N1, _txpin, _rxpin);//ESP32 Serial->begin need  _txpin, _rxpin
+  _serial->begin(_baud, SERIAL_8N1, _rxpin, _txpin);//ESP32 Serial->begin need  _rxpin, _txpin
 #else
   _serial->begin(_baud);  
 #endif
