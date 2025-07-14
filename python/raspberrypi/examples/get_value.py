@@ -1,4 +1,3 @@
-# -*- coding:utf-8 -*-
 '''
     @file get_advalue.py
     @brief Run this routine to get the voltage
