@@ -1,19 +1,35 @@
 /*!
- * @file get_advalue.ino
+ * @file getValue.ino
  * @brief Run this routine to get the voltage
  * @copyright    Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @license      The MIT License (MIT)
  * @author [lr](rong.li@dfrobot.com)
- * @version V1.0.0
- * @date 2024-07-23
+ * @version V1.0.2
+ * @date 2026-09-14
  * @url https://github.com/DFRobot/DFRobot_ADS1115_0_10V
  */
 #include <DFRobot_ADS1115_0_10V.h>
 
-//use I2C for communication, but use the serial port for communication if the line of codes were masked
-// #define I2C_COMMUNICATION 
+/*
+ * Module DIP switches (set with power OFF):
+ * 1) I2C / UART mode switch — must match the code below
+ *    - Uncomment I2C_COMMUNICATION  -> set module switch to I2C
+ *    - Comment out I2C_COMMUNICATION -> set module switch to UART
+ * 2) I2C address switch (A1/A0) — only used in I2C mode; ADDR must match silk screen
+ */
+// Use I2C; comment out the next line to use UART instead
+#define I2C_COMMUNICATION
 
-#define MODULE_I2C_ADDRESS 0x4A
+/*
+ * I2C address: set MODULE_I2C_ADDRESS to the value on the module silk screen
+ * (selected by A1/A0). Mismatch will cause begin() to fail.
+ *   A1 A0 | ADDR
+ *    0  0 | 0x48
+ *    0  1 | 0x49
+ *    1  0 | 0x4A
+ *    1  1 | 0x4B
+ */
+#define MODULE_I2C_ADDRESS 0x48
 #ifdef  I2C_COMMUNICATION
   DFRobot_ADS1115_I2C ads1115(&Wire, MODULE_I2C_ADDRESS);
   
@@ -38,9 +54,13 @@ void setup() {
     Serial.begin(9600);
     while (!ads1115.begin())
     {
-      Serial.println(" Error, please check connection and mode!");
-      delay(1000);  
-    }  
+#ifdef I2C_COMMUNICATION
+      Serial.println("Error: check wiring; set mode DIP to I2C; match MODULE_I2C_ADDRESS with silk screen (A1/A0)!");
+#else
+      Serial.println("Error: check wiring and set the module mode DIP switch to UART!");
+#endif
+      delay(1000);
+    }
 }
 
 void loop() {
@@ -49,18 +69,18 @@ void loop() {
   data= ads1115.getValue(channel);
   Serial.print(" channel:");
   Serial.print(channel);
-  Serial.print(" adValue::");
+  Serial.print(" adValue:");
   Serial.print(data);
   Serial.println("mv");
 
-//  delay(1000);
+  delay(1000);
   channel = 2;
   data= ads1115.getValue(channel);
   Serial.print(" channel:");
   Serial.print(channel);
-  Serial.print(" adValue::");
+  Serial.print(" adValue:");
   Serial.print(data);
   Serial.println("mv");
 
-//  delay(1000);
+  delay(1000);
 }

@@ -33,20 +33,20 @@ Here's one way to use this library:
 
   /**
    * @fn begin
-   * @brief  Initializes the communication method
-   * @return Returns the initial state
-   * @retval Ture no Eerro
+   * @brief Initializes the communication method
+   * @return Initialization status
+   * @retval true success
    */
-  uint8_t begin(void);
+  bool begin(void);
 
   /**
-   * @fn get_value(uint8_t channel)
+   * @fn getValue
    * @brief Getting voltage values
-   * @param select channel 1/ channel 2
-   * @note You can only enter 1 or 2, and any other values will always return 0
-   * @return voltage values
+   * @param channel Select channel 1 or channel 2
+   * @note Only 1 or 2 are valid; any other value returns 0
+   * @return Voltage in mV
    */
-  uint32_t get_value(uint8_t channel);
+  double getValue(uint8_t channel);
 ```
 
 ## Compatibility
@@ -63,6 +63,8 @@ RaspberryPi4       |      √       |                 |             |
 
 ## History
 
+- 2026/09/14 - Version 1.0.2 released.
+- 2024/12/13 - Version 1.0.1 released.
 - 2024/07/23 - Version 1.0.0 released.
 
 ## Credits

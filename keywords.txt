@@ -14,7 +14,7 @@ DFRobot_ADS1115_I2C	KEYWORD1
 #######################################
 
 begin	KEYWORD2
-get_value	KEYWORD2
+getValue	KEYWORD2
 
 #######################################
 # Constants (LITERAL1)

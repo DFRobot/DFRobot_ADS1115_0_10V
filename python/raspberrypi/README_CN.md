@@ -22,10 +22,10 @@
 
 
 ## 库安装
-要使用这个库，首先将库下载到Raspberry Pi，然后打开用例文件夹。要执行一个用例demox.py，请在命令行中输入python demox.py。例如，要执行get_advalue.py，你需要输入：
+要使用这个库，首先将库下载到 Raspberry Pi，然后打开 examples 文件夹。要运行示例，请在命令行中输入 `python <示例名>.py`。例如，要执行 get_value.py，输入：
 
 ```
-python get_advalue.py
+python get_value.py
 ```
 
 ## 方法
@@ -36,16 +36,16 @@ python get_advalue.py
   @brief 初始化通讯方式
   @return 返回初始化状态
 '''
-  def begin(void);
+  def begin(self)
 
 '''!
-  @fn get_value(uint8_t channel)
+  @fn get_value
   @brief 获取电压值
-  @param 选择通道1/通道2 
-  @note 只能输入1或2，其他值会一直返回0
-  @return 电压值
+  @param channel 选择通道1或通道2
+  @note 只能输入1或2，其他值返回0
+  @return 电压值，单位 mV
 '''
-  def get_value(uint8_t channel);
+  def get_value(self, channel)
 
 ```
 ## 兼容性
@@ -65,6 +65,8 @@ python get_advalue.py
 
 ## 历史
 
+- 2026/09/14 - V1.0.2 版本
+- 2024/12/13 - V1.0.1 版本
 - 2024/07/23 - V1.0.0 版本
 
 ## 创作者

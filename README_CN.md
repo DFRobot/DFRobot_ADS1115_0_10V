@@ -35,18 +35,18 @@
    * @fn begin
    * @brief 初始化通讯方式
    * @return 返回初始化状态
-   * @retval Ture no Eerro
+   * @retval true 成功
    */
-  uint8_t begin(void);
+  bool begin(void);
 
   /**
-   * @fn get_value(uint8_t channel)
+   * @fn getValue
    * @brief 获取电压值
-   * @param 选择通道1/通道2 
-   * @note 只能输入1或2，其他值会一直返回0
-   * @return 电压值
+   * @param channel 选择通道1或通道2
+   * @note 只能输入1或2，其他值返回0
+   * @return 电压值，单位 mV
    */
-  uint32_t get_value(uint8_t channel);
+  double getValue(uint8_t channel);
 ```
 ## 兼容性
 
@@ -62,6 +62,8 @@ RaspberryPi4       |      √       |                 |             |
 
 ## 历史
 
+- 2026/09/14 - V1.0.2 版本
+- 2024/12/13 - V1.0.1 版本
 - 2024/07/23 - V1.0.0 版本
 
 ## 创作者

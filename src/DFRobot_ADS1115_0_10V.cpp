@@ -4,8 +4,8 @@
  * @copyright	Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @license The MIT License (MIT)
  * @author [LR]<rong.li@dfrobot.com>
- * @version V1.0.0
- * @date 2024-07-23
+ * @version V1.0.2
+ * @date 2026-09-14
  * @url https://github.com/DFRobot/DFRobot_ADS1115_0_10V
  */
 #include"DFRobot_ADS1115_0_10V.h"
@@ -21,20 +21,19 @@ DFRobot_ADS1115::DFRobot_ADS1115()
 {
 }
 
-int DFRobot_ADS1115::begin(void)
-{
-	return 0;
-}
-
 double DFRobot_ADS1115::getValue(uint8_t channel)
 {
-	uint8_t pBuf[3]={0};
-	double ad_value=0;
- 	writeReg(CHANNEL_SELECT_ADDRESS,  &channel, 1);
+	uint8_t pBuf[3] = {0};
+	uint32_t ad_value = 0;
+
+	if ((channel != 1) && (channel != 2)) {
+		return 0;
+	}
+	/* Channel switch; writeReg already waits for module update (UART ~20 ms, I2C ~50 ms). */
+	writeReg(CHANNEL_SELECT_ADDRESS, &channel, 1);
 	readReg(CHANNEL_DATA_ADDRESS, pBuf, 3);
-	ad_value = pBuf[1];//bug 
-	ad_value=pBuf[0]*65536+(ad_value*256)+pBuf[2];
-	return ad_value/100.0;
+	ad_value = ((uint32_t)pBuf[0] << 16) | ((uint32_t)pBuf[1] << 8) | pBuf[2];
+	return ad_value / 100.0;
 }
 
 

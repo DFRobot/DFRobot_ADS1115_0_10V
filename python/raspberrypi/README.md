@@ -24,10 +24,10 @@ The product is a module that integrates the ADS1115 chip. The I2C and UART commu
 
 
 ## Installation
-To use this library, first download it to Raspberry Pi and then open the use case folder. To execute a use case demox.py, enter python demox.py in the command line. For example, to execute the control32k.py use case, you need to enter:<br>
+To use this library, first download it to Raspberry Pi and then open the examples folder. To run an example, enter `python <example>.py` in the command line. For example, to run `get_value.py`, enter:<br>
 
 ```
-python get_advalue.py
+python get_value.py
 ```
 
 
@@ -38,17 +38,18 @@ python get_advalue.py
 '''!
   @fn begin
   @brief Initializes the communication method
-  @return Ture or False
+  @return True or False
 '''
   def begin(self)
-'''
-  @fn get_value(uint8_t channel)
+
+'''!
+  @fn get_value
   @brief Getting voltage values
-  @param select channel 1/ channel 2
-  @note You can only enter 1 or 2, and any other values will always return 0
-  @return voltage values
+  @param channel Select channel 1 or channel 2
+  @note Only 1 or 2 are valid; any other value returns 0
+  @return Voltage in mV
 '''
-  def get_value(uint8_t channel);
+  def get_value(self, channel)
 
 ```
 
@@ -70,6 +71,8 @@ python get_advalue.py
 
 ## History
 
+- 2026/09/14 - Version 1.0.2 released.
+- 2024/12/13 - Version 1.0.1 released.
 - 2024/07/23 - Version 1.0.0 released.
 
 ## Credits

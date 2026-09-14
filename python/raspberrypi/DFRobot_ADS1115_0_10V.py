@@ -5,8 +5,8 @@
     @copyright	Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
     @license The MIT License (MIT)
     @author [lr](rong.li@dfrobot.com)
-    @version V1.0.0
-    @date 2024-07-23
+    @version V1.0.2
+    @date 2026-09-14
     @url https://github.com/DFRobot/DFRobot_ADS1115_0_10V
 """
 from __future__ import absolute_import
@@ -37,12 +37,21 @@ class DFRobot_ADS1115:
     UART_WRITE_REGBUF  = 0xCC    
     def begin(self):
         {}
-    def get_value(self, channel):    
+    def get_value(self, channel):
+        '''!
+          @brief Getting voltage values
+          @param channel Choose channel 1 or channel 2; other values return 0
+          @return Voltage in mV
+        '''
         try:
-            self._write_reg(self.CHANNEL_SELECT_ADDRESS,[channel], size=1)
-            buf =self._read_reg(self. CHANNEL_DATA_ADDRESS,3)
-            return (buf[0]*65536+buf[1]*256+buf[2])/100.0  
-        except :
+            if channel not in (1, 2):
+                return 0
+            # Channel switch; _write_reg already waits for module update (UART ~20 ms, I2C ~50 ms)
+            self._write_reg(self.CHANNEL_SELECT_ADDRESS, [channel], size=1)
+            buf = self._read_reg(self.CHANNEL_DATA_ADDRESS, 3)
+            ad_value = (buf[0] << 16) | (buf[1] << 8) | buf[2]
+            return ad_value / 100.0
+        except:
             logger.error("Please check connect!")
             return 0
 

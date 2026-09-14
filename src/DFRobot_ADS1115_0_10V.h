@@ -4,8 +4,8 @@
  * @copyright	Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @license The MIT License (MIT)
  * @author [LR]<rong.li@dfrobot.com>
- * @version V1.0.0
- * @date 2024-07-23
+ * @version V1.0.2
+ * @date 2026-09-14
  * @url https://github.com/DFRobot/DFRobot_ADS1115_0_10V
  */
 #ifndef __DFRobot_ADS1115_0_10V_H
@@ -63,12 +63,12 @@ public:
    * @return bool type, means returning initialization status
    * @retval true NO_ERROR
    */
-  int begin(void);
-    /**
-   * @fn get_value
+  virtual bool begin(void) = 0;
+  /**
+   * @fn getValue
    * @brief Getting voltage values
-   * @param channel Choose channel 1 or channel 2
-   * @return Voltage values
+   * @param channel Choose channel 1 or channel 2; other values return 0
+   * @return Voltage in mV
    */
   double getValue(uint8_t channel);
   DFRobot_ADS1115();
@@ -80,7 +80,7 @@ class DFRobot_ADS1115_UART:public DFRobot_ADS1115{
 public:
 #define UART_READ_REGBUF    0xBB
 #define UART_WRITE_REGBUF   0xCC
-  bool begin(void);
+  bool begin(void) override;
 
 #if defined(ARDUINO_AVR_UNO) || defined(ESP8266)
   DFRobot_ADS1115_UART(SoftwareSerial* sSerial);
@@ -103,7 +103,7 @@ protected:
 class DFRobot_ADS1115_I2C:public DFRobot_ADS1115{
 public:
   DFRobot_ADS1115_I2C(TwoWire* Wire, uint8_t MODULE_I2C_ADDRESS);
-  bool begin(void);
+  bool begin(void) override;
 private:
 	TwoWire* _Wire;
   uint8_t deviceAddr;
